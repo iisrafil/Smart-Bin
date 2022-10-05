@@ -1,0 +1,89 @@
+{% extends "dashboard/base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <h3 class="text-dark mb-4">Device List</h3>
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-md-6 text-nowrap">
+                    <p class="text-primary m-0 fw-bold">Device</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-md-end dataTables_filter" id="dataTable_filter"><a class="btn btn-primary" href="{% url 'add_device' %}">Add
+                        Device</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+
+            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                <table class="table my-0" id="dataTable">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>User</th>
+                        <th>Percentage</th>
+                        <th>Last Full Time</th>
+                        <th>Last Clean Time</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for device in devices %}
+                    <tr>
+                        <td><a class="btn" href="{% url 'view_device' device.id %}" >{{ device.id }}</a></td>
+                        <td><a class="btn" href="{% url 'view_device' device.id %}" >{{ device.name }}</a></td>
+                        <td><a class="btn" href="{% url 'view_device' device.id %}" >{{ device.user }}</a></td>
+                        <td><a class="btn" href="{% url 'view_device' device.id %}" >{{ device.percentage }}</a></td>
+                        <td><a class="btn" href="{% url 'view_device' device.id %}" >{{ device.lastFullTime }}</a></td>
+                        <td><a class="btn" href="{% url 'view_device' device.id %}" >{{ device.lastCleanTime }}</a></td>
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td><strong>ID</strong></td>
+                        <td><strong>Name</strong></td>
+                        <td><strong>User</strong></td>
+                        <td><strong>Percentage</strong></td>
+                        <td><strong>Last Full Time</strong></td>
+                        <td><strong>Last Clean Time</strong></td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-6 text-nowrap">
+                </div>
+                <div class="col-md-6">
+                    <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
+                        <ul class="pagination">
+                            {% if devices.has_previous %}
+                            <li class="page-item disabled"><a class="page-link" aria-label="Previous"
+                                                              href="?page={{ devices.previous_page_number }}"><span
+                                    aria-hidden="true">«</span></a></li>
+                            {% endif %}
+                            {% for i in devices.paginator.page_range %}
+                            {% if devices.number == i %}
+                            <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+                            {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+                            {% if devices.has_next %}
+                            <li class="page-item"><a class="page-link" aria-label="Next"
+                                                     href="?page={{ devices.next_page_number }}"><span
+                                    aria-hidden="true">»</span></a></li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+{% endblock %}

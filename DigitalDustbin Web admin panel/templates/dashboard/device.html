@@ -1,0 +1,48 @@
+{% extends "dashboard/base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-md-6 text-nowrap">
+                    <p class="text-primary m-0 fw-bold">{{ title }}</p>
+                </div>
+                <div class="col-md-6">
+
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 text-nowrap">
+                    <p><strong>User:</strong> {{ device.user.id }}</p>
+                    <p><strong>Name:</strong> {{ device.name }}</p>
+                    <p><strong>Location:</strong> {{ device.location }}</p>
+                    <p><strong>Dustbin Height:</strong> {{ device.dustbinHeight }}</p>
+                    <p><strong>Dustbin Full:</strong> {{ device.percentage }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Gas:</strong> {{ device.gas }}</p>
+                    <p><strong>Temperature:</strong> {{ device.temp }}</p>
+                    <p><strong>Humidity:</strong> {{ device.humidity }}</p>
+                    <p><strong>Last Full Time:</strong> {{ device.lastFullTime }}</p>
+                    <p><strong>Last Clean Time:</strong> {{ device.lastCleanTime }}</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6 text-nowrap">
+                    <a class=" btn btn-danger m-0 fw-bold" href="{% url 'delete_device' device.id %}">Delete</a>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-lg-flex justify-content-lg-end">
+                        <a class=" btn btn-primary  m-0 fw-bold" href="{% url 'update_device' device.id %}">Update</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+{% endblock %}
